@@ -1,4 +1,4 @@
-import { Route, Switch } from 'wouter';
+import { Route, Switch, useLocation } from 'wouter';
 import GeometricBackground from '@/components/GeometricBackground';
 import CrtOverlay from '@/components/CrtOverlay';
 import Navbar from '@/components/Navbar';
@@ -9,8 +9,40 @@ import LeaderboardPage from '@/pages/LeaderboardPage';
 import PlayerPage from '@/pages/PlayerPage';
 import VersusPage from '@/pages/VersusPage';
 import FriendsPage from '@/pages/FriendsPage';
+import DesignSystemPage from '@/pages/DesignSystemPage';
+
+/**
+ * Routes using the NEW social MVP design (dark/purple, Inter font).
+ * Everything else falls back to the legacy arcade shell.
+ *
+ * As we migrate pages to the new design, add their paths here.
+ */
+const SOCIAL_ROUTES = ['/design'];
+
+function isSocialRoute(path: string): boolean {
+  return SOCIAL_ROUTES.some(r => path === r || path.startsWith(r + '/'));
+}
 
 export default function App() {
+  const [location] = useLocation();
+  const social = isSocialRoute(location);
+
+  if (social) {
+    return (
+      <div className="social-app">
+        <Switch>
+          <Route path="/design" component={DesignSystemPage} />
+          <Route>
+            <div className="mx-auto max-w-md px-4 py-24 text-center">
+              <h1 className="text-4xl text-fg">404</h1>
+              <p className="text-fg-muted mt-2">Page not found</p>
+            </div>
+          </Route>
+        </Switch>
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen">
       <GeometricBackground />
