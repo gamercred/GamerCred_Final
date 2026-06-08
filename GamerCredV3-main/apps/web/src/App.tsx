@@ -10,17 +10,21 @@ import PlayerPage from '@/pages/PlayerPage';
 import VersusPage from '@/pages/VersusPage';
 import FriendsPage from '@/pages/FriendsPage';
 import DesignSystemPage from '@/pages/DesignSystemPage';
+import LandingPage from '@/pages/LandingPage';
+import ComingSoonPage from '@/pages/ComingSoonPage';
 
 /**
- * Routes using the NEW social MVP design (dark/purple, Inter font).
+ * Routes that use the NEW social MVP design (dark/purple, Inter font).
  * Everything else falls back to the legacy arcade shell.
  *
  * As we migrate pages to the new design, add their paths here.
  */
-const SOCIAL_ROUTES = ['/design'];
+const SOCIAL_ROUTES = ['/', '/design', '/coming-soon'];
 
 function isSocialRoute(path: string): boolean {
-  return SOCIAL_ROUTES.some(r => path === r || path.startsWith(r + '/'));
+  // Exact root match, OR starts with one of the social roots followed by /
+  if (path === '/') return true;
+  return SOCIAL_ROUTES.some(r => r !== '/' && (path === r || path.startsWith(r + '/')));
 }
 
 export default function App() {
@@ -31,7 +35,9 @@ export default function App() {
     return (
       <div className="social-app">
         <Switch>
+          <Route path="/" component={LandingPage} />
           <Route path="/design" component={DesignSystemPage} />
+          <Route path="/coming-soon/:feature" component={ComingSoonPage} />
           <Route>
             <div className="mx-auto max-w-md px-4 py-24 text-center">
               <h1 className="text-4xl text-fg">404</h1>
@@ -43,6 +49,7 @@ export default function App() {
     );
   }
 
+  // Legacy arcade shell — for routes not yet migrated
   return (
     <div className="relative min-h-screen">
       <GeometricBackground />
@@ -50,7 +57,8 @@ export default function App() {
         <Navbar />
         <main>
           <Switch>
-            <Route path="/" component={HomePage} />
+            {/* /  is now the social landing — old HomePage stays available at /old-home */}
+            <Route path="/old-home" component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/leaderboard" component={LeaderboardPage} />
             <Route path="/player/:steamId" component={PlayerPage} />
