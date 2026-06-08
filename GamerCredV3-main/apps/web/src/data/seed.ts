@@ -87,3 +87,47 @@ export const DEMO_USER = {
   nextMilestone: 9000,
   avatar: null,
 };
+
+// ── Demo posts ────────────────────────────────────────────────────────
+// You chose "No seeded posts — empty state" in spec. Set USE_DEMO_POSTS=true
+// here OR pass ?demo=1 in URL to show the mockup-style posts for screenshots.
+
+import type { PostData } from '@/components/social/PostCard';
+
+export const USE_DEMO_POSTS = false;
+
+export const DEMO_POSTS: PostData[] = [
+  {
+    id: 'demo-1',
+    authorName: 'ArjunX',
+    authorAvatar: null,
+    authorVerified: true,
+    timeAgo: '2h ago',
+    gameTag: 'Elden Ring',
+    text: "Finally beat Malenia! What a fight 🔥\nOne of the best boss battles I've ever experienced.",
+    hashtags: ['#EldenRing'],
+    likes: 124,
+    comments: 23,
+  },
+  {
+    id: 'demo-2',
+    authorName: 'Vikram',
+    authorAvatar: null,
+    timeAgo: '4h ago',
+    gameTag: 'Clair Obscur: Expedition 33',
+    text: "Just finished Expedition 33. The story, the world, the music — everything was phenomenal. 10/10.",
+    hashtags: ['#Expedition33'],
+    likes: 98,
+    comments: 15,
+  },
+  {
+    id: 'demo-3',
+    authorName: 'SnehaPlays',
+    authorAvatar: null,
+    timeAgo: '6h ago',
+    achievementTag: { title: 'Completionist', xp: 50 },
+    text: 'Unlocked 100% achievements in Hollow Knight! 🎉 Took me 62 hours but totally worth it.',
+    likes: 76,
+    comments: 12,
+  },
+];
