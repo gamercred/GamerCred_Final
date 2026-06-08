@@ -5,6 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        // === LEGACY arcade tokens (retained for Versus and existing pages) ===
         bg: 'hsl(220 30% 5%)',
         bg2: 'hsl(220 30% 8%)',
         panel: 'hsl(220 30% 10%)',
@@ -14,9 +15,53 @@ export default {
         neonYellow: 'hsl(55 100% 60%)',
         neonGreen: 'hsl(140 100% 55%)',
         scanline: 'rgba(0, 255, 255, 0.04)',
+
+        // === NEW: social MVP dark/purple theme ===
+        surface: {
+          DEFAULT: '#0A0A0F',
+          elevated: '#13131A',
+          overlay: '#1A1A24',
+          inset: '#070709',
+        },
+        line: {
+          DEFAULT: '#1F1F2A',
+          strong: '#2A2A38',
+        },
+        fg: {
+          DEFAULT: '#FAFAFA',
+          muted: '#9CA3AF',
+          dim: '#6B7280',
+          inverse: '#0A0A0F',
+        },
+        brand: {
+          DEFAULT: '#7C3AED',
+          hover: '#8B4FF0',
+          pressed: '#6B2FD6',
+          glow: '#A78BFA',
+          soft: '#7C3AED1A',
+        },
+        like: '#EC4899',
+        info: '#3B82F6',
+        ok: '#10B981',
+        warn: '#F59E0B',
+        danger: '#EF4444',
       },
       fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
         arcade: ['"VT323"', 'ui-monospace', 'monospace'],
+      },
+      borderRadius: {
+        card: '16px',
+        button: '8px',
+        input: '12px',
+        pill: '9999px',
+      },
+      boxShadow: {
+        glow: '0 0 24px -4px rgba(124, 58, 237, 0.5)',
+        'glow-sm': '0 0 12px -2px rgba(124, 58, 237, 0.4)',
+        card: '0 1px 3px rgba(0, 0, 0, 0.4)',
+        'card-hover': '0 4px 12px rgba(0, 0, 0, 0.5)',
       },
       keyframes: {
         flicker: {
@@ -47,6 +92,14 @@ export default {
           '40%': { transform: 'translate(3px, -3px)' },
           '50%': { transform: 'translate(-2px, 1px)' },
         },
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(4px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.7' },
+        },
       },
       animation: {
         flicker: 'flicker 4s linear infinite',
@@ -55,6 +108,8 @@ export default {
         blink: 'blink 1s steps(1) infinite',
         glowpulse: 'glowpulse 2.5s ease-in-out infinite',
         battleShake: 'battleShake 0.35s ease-out',
+        'fade-in': 'fade-in 0.2s ease-out',
+        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
       },
     },
   },
