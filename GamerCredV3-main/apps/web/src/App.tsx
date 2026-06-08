@@ -12,6 +12,7 @@ import FriendsPage from '@/pages/FriendsPage';
 import DesignSystemPage from '@/pages/DesignSystemPage';
 import LandingPage from '@/pages/LandingPage';
 import ComingSoonPage from '@/pages/ComingSoonPage';
+import FeedPage from '@/pages/FeedPage';
 
 /**
  * Routes that use the NEW social MVP design (dark/purple, Inter font).
@@ -19,7 +20,7 @@ import ComingSoonPage from '@/pages/ComingSoonPage';
  *
  * As we migrate pages to the new design, add their paths here.
  */
-const SOCIAL_ROUTES = ['/', '/design', '/coming-soon'];
+const SOCIAL_ROUTES = ['/', '/design', '/coming-soon', '/feed'];
 
 function isSocialRoute(path: string): boolean {
   // Exact root match, OR starts with one of the social roots followed by /
@@ -36,6 +37,7 @@ export default function App() {
       <div className="social-app">
         <Switch>
           <Route path="/" component={LandingPage} />
+          <Route path="/feed" component={FeedPage} />
           <Route path="/design" component={DesignSystemPage} />
           <Route path="/coming-soon/:feature" component={ComingSoonPage} />
           <Route>

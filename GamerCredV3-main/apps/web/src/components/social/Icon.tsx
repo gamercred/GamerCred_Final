@@ -31,10 +31,11 @@ export function Icon({ name, size = 18, className, ...rest }: Props) {
 
   switch (name) {
     case 'gamercred-logo':
+      // Hexagon frame + chunky G inside
       return (
-        <svg {...props} viewBox="0 0 32 32" fill="currentColor" stroke="none">
-          <path d="M16 2 L29 9 L29 23 L16 30 L3 23 L3 9 Z" fill="none" stroke="currentColor" strokeWidth="2.5" />
-          <path d="M21 12 L13 12 L13 16 L17 16 L17 18 L13 18 L13 20 L21 20" fill="none" stroke="currentColor" strokeWidth="2.5" />
+        <svg {...props} viewBox="0 0 32 32" fill="none" stroke="currentColor">
+          <path d="M16 2 L29 9 L29 23 L16 30 L3 23 L3 9 Z" strokeWidth="2.5" strokeLinejoin="round" />
+          <path d="M21 11 C20 10 18 9 16 9 C12.5 9 10 11.5 10 16 C10 20.5 12.5 23 16 23 C18 23 20 22 21 21 L21 16 L16 16" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     case 'home':
