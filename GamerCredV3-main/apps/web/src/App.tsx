@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, Switch, useLocation } from 'wouter';
 import GeometricBackground from '@/components/GeometricBackground';
 import CrtOverlay from '@/components/CrtOverlay';
@@ -11,21 +12,30 @@ import VersusPage from '@/pages/VersusPage';
 import FriendsPage from '@/pages/FriendsPage';
 import DesignSystemPage from '@/pages/DesignSystemPage';
 import LandingPage from '@/pages/LandingPage';
-import ComingSoonPage from '@/pages/ComingSoonPage';
-import FeedPage from '@/pages/FeedPage';
 
 /**
- * Routes that use the NEW social MVP design (dark/purple, Inter font).
- * Everything else falls back to the legacy arcade shell.
+ * Routes using the NEW theme (Inter, dark/purple). Everything else
+ * falls back to the legacy arcade shell.
  *
- * As we migrate pages to the new design, add their paths here.
+ * Profile + News routes will be added in upcoming phases.
  */
-const SOCIAL_ROUTES = ['/', '/design', '/coming-soon', '/feed'];
+const SOCIAL_ROUTES = ['/', '/design'];
 
 function isSocialRoute(path: string): boolean {
-  // Exact root match, OR starts with one of the social roots followed by /
   if (path === '/') return true;
   return SOCIAL_ROUTES.some(r => r !== '/' && (path === r || path.startsWith(r + '/')));
+}
+
+/**
+ * Redirect helper for deprecated routes (e.g. old /feed shipped briefly).
+ * Avoids breaking any external links that already point at the old URL.
+ */
+function Redirect({ to }: { to: string }) {
+  const [, setLocation] = useLocation();
+  useEffect(() => {
+    setLocation(to);
+  }, [to, setLocation]);
+  return null;
 }
 
 export default function App() {
@@ -37,13 +47,12 @@ export default function App() {
       <div className="social-app">
         <Switch>
           <Route path="/" component={LandingPage} />
-          <Route path="/feed" component={FeedPage} />
           <Route path="/design" component={DesignSystemPage} />
-          <Route path="/coming-soon/:feature" component={ComingSoonPage} />
           <Route>
             <div className="mx-auto max-w-md px-4 py-24 text-center">
               <h1 className="text-4xl text-fg">404</h1>
               <p className="text-fg-muted mt-2">Page not found</p>
+              <a href="/" className="mt-6 inline-block text-brand hover:text-brand-glow">← Back home</a>
             </div>
           </Route>
         </Switch>
@@ -51,7 +60,6 @@ export default function App() {
     );
   }
 
-  // Legacy arcade shell — for routes not yet migrated
   return (
     <div className="relative min-h-screen">
       <GeometricBackground />
@@ -59,13 +67,15 @@ export default function App() {
         <Navbar />
         <main>
           <Switch>
-            {/* /  is now the social landing — old HomePage stays available at /old-home */}
             <Route path="/old-home" component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/leaderboard" component={LeaderboardPage} />
             <Route path="/player/:steamId" component={PlayerPage} />
             <Route path="/versus" component={VersusPage} />
             <Route path="/friends" component={FriendsPage} />
+            {/* Deprecated routes — redirect home so external links don't 404 */}
+            <Route path="/feed">{() => <Redirect to="/" />}</Route>
+            <Route path="/coming-soon/:feature">{() => <Redirect to="/" />}</Route>
             <Route>
               <div className="mx-auto max-w-md px-4 py-24 text-center">
                 <div className="neon-mag text-5xl uppercase">404</div>

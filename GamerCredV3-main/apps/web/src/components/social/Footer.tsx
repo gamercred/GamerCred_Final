@@ -7,15 +7,15 @@ export function BottomCta() {
     <section className="border-t border-line bg-gradient-to-r from-brand/10 via-brand/5 to-fuchsia-500/10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row lg:px-6">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">🏆</span>
+          <span className="text-2xl">🎮</span>
           <div>
-            <div className="text-sm font-semibold text-fg">Ready to level up your gaming identity?</div>
-            <div className="text-xs text-fg-muted">Join thousands of gamers sharing their journey.</div>
+            <div className="text-sm font-semibold text-fg">Ready to see your score?</div>
+            <div className="text-xs text-fg-muted">Connect your Steam — it takes 30 seconds.</div>
           </div>
         </div>
         <Link href="/login">
           <Button variant="primary" size="md">
-            Create Your Profile
+            Connect Steam
             <Icon name="arrow-right" size={16} />
           </Button>
         </Link>
@@ -33,12 +33,12 @@ export function Footer() {
             <span className="text-brand">
               <Icon name="gamercred-logo" size={18} />
             </span>
-            <span>GAMERCRED — Your Gaming Identity. Connected.</span>
+            <span>GAMERCRED — Your Gaming Credit Score.</span>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/coming-soon/about" className="hover:text-fg-muted">About</Link>
-            <Link href="/coming-soon/terms" className="hover:text-fg-muted">Terms</Link>
-            <Link href="/coming-soon/privacy" className="hover:text-fg-muted">Privacy</Link>
+            <Link href="/about" className="hover:text-fg-muted">About</Link>
+            <Link href="/news" className="hover:text-fg-muted">News</Link>
+            <Link href="/leaderboard" className="hover:text-fg-muted">Leaderboard</Link>
             <span>Steam is a trademark of Valve.</span>
           </div>
         </div>
