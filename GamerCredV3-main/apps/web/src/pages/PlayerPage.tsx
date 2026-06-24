@@ -5,7 +5,7 @@ import Panel from '@/components/Panel';
 import AffiliateBanner from '@/components/AffiliateBanner';
 import { LoadingScreen, ErrorScreen } from '@/components/Status';
 import { formatCred, formatHours, ratingColor, ratingLabel } from '@/lib/utils';
-import { UserPlus, Swords } from 'lucide-react';
+import { UserPlus, Swords, Wallet } from 'lucide-react';
 
 export default function PlayerPage({ params }: { params: { steamId: string } }) {
   const [, nav] = useLocation();
@@ -49,14 +49,14 @@ export default function PlayerPage({ params }: { params: { steamId: string } }) 
           <div className="text-sm text-neonMagenta uppercase">// OPERATOR</div>
           <h1 className="neon text-4xl uppercase truncate">{u.personaName}</h1>
           <div className="text-neonCyan/70 text-base uppercase">
-            STEAM ID: {u.steamId} {u.country && `· ${u.country}`}
+            STEAM ID: {u.steamId} {u.country && `\u00b7 ${u.country}`}
           </div>
         </div>
         <div className="text-right">
           <div className="text-sm uppercase text-neonMagenta">// CRED</div>
           <div className="neon-mag text-6xl animate-glowpulse">{formatCred(u.credScore)}</div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {!isMe && (
             <>
               <button onClick={addFriend} className="btn-arcade" title="ADD FRIEND">
@@ -70,6 +70,16 @@ export default function PlayerPage({ params }: { params: { steamId: string } }) 
               </Link>
             </>
           )}
+          
+          <a
+            href={`https://steamdb.info/calculator/${u.steamId}/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+            title="VIEW LIBRARY VALUE ON STEAMDB"
+          >
+            <Wallet size={16} /> LIBRARY VALUE
+          </a>
         </div>
       </Panel>
 
@@ -92,7 +102,7 @@ export default function PlayerPage({ params }: { params: { steamId: string } }) 
 
       {/* Game grid */}
       <section>
-        <h2 className="neon text-2xl uppercase mb-3">GAME LIBRARY · TOP {games.length}</h2>
+        <h2 className="neon text-2xl uppercase mb-3">GAME LIBRARY \u00b7 TOP {games.length}</h2>
         {games.length === 0 ? (
           <Panel>
             <div className="text-center py-8 text-neonCyan/60 uppercase">
@@ -110,7 +120,7 @@ export default function PlayerPage({ params }: { params: { steamId: string } }) 
                 <div className="flex items-center justify-between mt-1">
                   <span className="text-xs text-neonCyan/60">{formatHours(g.hours)}</span>
                   <span className={`text-xs ${ratingColor(g.positivePct)}`}>
-                    {g.reviewCount > 0 ? `${Math.round(g.positivePct * 100)}%` : '—'}
+                    {g.reviewCount > 0 ? `${Math.round(g.positivePct * 100)}%` : '\u2014'}
                   </span>
                 </div>
                 {g.reviewCount > 0 && (
