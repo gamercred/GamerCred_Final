@@ -14,6 +14,15 @@ export default {
         neonPurple: 'hsl(270 100% 60%)',
         neonYellow: 'hsl(55 100% 60%)',
         neonGreen: 'hsl(140 100% 55%)',
+
+        // === Cyberpunk command-centre palette ===
+        cyberMagenta: '#E91E63',
+        cyberMagentaGlow: '#FF4D8D',
+        cyberPink: '#FF1F8F',
+        cyberPurple: '#A020F0',
+        credGreen: '#10F0A0',
+        credGreenGlow: '#5BFFC5',
+        cyberRed: '#FF2D55',  // BREAKING pills
         scanline: 'rgba(0, 255, 255, 0.04)',
 
         // === NEW: social MVP dark/purple theme ===
