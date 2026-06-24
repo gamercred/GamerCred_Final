@@ -11,25 +11,19 @@ import PlayerPage from '@/pages/PlayerPage';
 import VersusPage from '@/pages/VersusPage';
 import FriendsPage from '@/pages/FriendsPage';
 import DesignSystemPage from '@/pages/DesignSystemPage';
-import LandingPage from '@/pages/LandingPage';
+import CommandCenterPage from '@/pages/CommandCenterPage';
 
 /**
- * Routes using the NEW theme (Inter, dark/purple). Everything else
- * falls back to the legacy arcade shell.
- *
- * Profile + News routes will be added in upcoming phases.
+ * "New theme" routes use the cyberpunk command-centre / Inter shell.
+ * Everything else still falls back to the legacy arcade shell.
  */
-const SOCIAL_ROUTES = ['/', '/design'];
+const NEW_THEME_ROUTES = ['/', '/design'];
 
-function isSocialRoute(path: string): boolean {
+function isNewThemeRoute(path: string): boolean {
   if (path === '/') return true;
-  return SOCIAL_ROUTES.some(r => r !== '/' && (path === r || path.startsWith(r + '/')));
+  return NEW_THEME_ROUTES.some(r => r !== '/' && (path === r || path.startsWith(r + '/')));
 }
 
-/**
- * Redirect helper for deprecated routes (e.g. old /feed shipped briefly).
- * Avoids breaking any external links that already point at the old URL.
- */
 function Redirect({ to }: { to: string }) {
   const [, setLocation] = useLocation();
   useEffect(() => {
@@ -40,23 +34,24 @@ function Redirect({ to }: { to: string }) {
 
 export default function App() {
   const [location] = useLocation();
-  const social = isSocialRoute(location);
 
-  if (social) {
+  if (isNewThemeRoute(location)) {
     return (
-      <div className="social-app">
-        <Switch>
-          <Route path="/" component={LandingPage} />
-          <Route path="/design" component={DesignSystemPage} />
-          <Route>
+      <Switch>
+        <Route path="/" component={CommandCenterPage} />
+        <Route path="/design" component={DesignSystemPage} />
+        <Route>
+          <div className="cc-app">
             <div className="mx-auto max-w-md px-4 py-24 text-center">
-              <h1 className="text-4xl text-fg">404</h1>
-              <p className="text-fg-muted mt-2">Page not found</p>
-              <a href="/" className="mt-6 inline-block text-brand hover:text-brand-glow">← Back home</a>
+              <h1 className="text-4xl text-white">404</h1>
+              <p className="mt-2 text-white/55">Page not found</p>
+              <a href="/" className="mt-6 inline-block text-cyberMagentaGlow hover:text-cyberPink">
+                ← Back to command centre
+              </a>
             </div>
-          </Route>
-        </Switch>
-      </div>
+          </div>
+        </Route>
+      </Switch>
     );
   }
 
@@ -73,7 +68,7 @@ export default function App() {
             <Route path="/player/:steamId" component={PlayerPage} />
             <Route path="/versus" component={VersusPage} />
             <Route path="/friends" component={FriendsPage} />
-            {/* Deprecated routes — redirect home so external links don't 404 */}
+            {/* Deprecated routes redirect home so any external link survives */}
             <Route path="/feed">{() => <Redirect to="/" />}</Route>
             <Route path="/coming-soon/:feature">{() => <Redirect to="/" />}</Route>
             <Route>
